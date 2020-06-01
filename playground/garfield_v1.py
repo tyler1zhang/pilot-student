@@ -1,4 +1,4 @@
-from bot import *
+from bot_v1 import *
 
 
 class Garfield:
@@ -9,7 +9,7 @@ class Garfield:
         self.bots.append(bot)
 
     def run(self):
-        print(f"Hi, this is Garfield dialog bot. Let's chat!")
+        print(f"Hi, this is Garfield dialog bot. Let's chat! If you want to end of chat, please input 'quit'")
         for bot in self.bots:
             bot.run()
 

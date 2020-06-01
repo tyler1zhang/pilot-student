@@ -6,10 +6,12 @@ from simpleeval import simple_eval
 
 class Bot:
     wait = 1
+    
 
     def __init__(self):
         self.q = ''
         self.a = ''
+        self.cycle = "once"
 
     def _think(self, s):
         return s
@@ -19,14 +21,23 @@ class Bot:
         print(colored(s, "cyan"))
 
     def run(self):
-        self._say(self.q)
-        self.a = input()
-        self._say(self._think(self.a))
+        while True:
+            self._say(self.q)
+            self.a = input()
+            if self.a != 'quit':
+                self._say(self._think(self.a))
+                if self.cycle == "once":
+                    break
+            else:
+                self._say("Good Bye!")
+                break
+
 
 
 class HelloBot(Bot):
        
     def __init__(self):
+        super().__init__()
         self.q = "Hello, what's your name?"
         self.a = ''
 
@@ -36,6 +47,7 @@ class HelloBot(Bot):
 
 class FavColor(Bot):
     def __init__(self):
+        super().__init__()
         self.q = "What's your favorite color?"
         self.a = ''
 
@@ -45,6 +57,7 @@ class FavColor(Bot):
 
 class GreetingBot(Bot):
     def __init__(self):
+        super().__init__()
         self.q = 'How are you today?'
         self.a = ''
 
@@ -54,12 +67,14 @@ class GreetingBot(Bot):
         elif 'fine' in s.lower():
             return "I am fine too!"
         else:
-            return "I am sorry to hear that."
+            return "I am sorry to hear that." 
     
 class CalcBot(Bot):
+
     def __init__(self):
         self.q = "I could do calculation now. You could try now"
         self.a = ''
+        self.cycle = "always"
 
     def _think(self, s):
         return f"The result is {simple_eval(s)}"
